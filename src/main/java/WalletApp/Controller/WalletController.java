@@ -25,7 +25,7 @@ public class WalletController {
     @PostMapping("/addwallet")
     public String savewallet(@RequestBody Wallet wallet)
     {
-        wallet.setBalance(0L);
+        wallet.setwallet_balance(0L);
         if(walletService.savewallet(wallet) == 1) {
 
             logger.info("Duplicate values");

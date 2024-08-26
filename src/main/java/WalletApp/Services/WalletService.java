@@ -51,7 +51,7 @@ public class WalletService{
             existingWallet.setMobilenumber(wallet.getMobilenumber());
             existingWallet.setEmail(wallet.getEmail());
             existingWallet.setAddress(wallet.getAddress());
-            existingWallet.setBalance(wallet.getBalance());
+            existingWallet.setwallet_balance(wallet.getwallet_balance());
             return walletRepository.save(existingWallet);
         }).orElseThrow(() -> new RuntimeException("No wallet found with id: " + wallet_id));
     }

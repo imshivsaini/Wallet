@@ -19,47 +19,40 @@ public class TransactionService {
     @Autowired
     private TransactionRepository transactionRepository;
     @Autowired
-    private SmsService smsService;
+    private EmailService emailService;
+
+
 
 
     @Async("mainTaskExecutor")
     public  void LoadWallet(Transaction transaction, Long wallet_id){
         Wallet wallet = walletRepository.findById(wallet_id).orElseThrow(()-> new RuntimeException("Wallet not found with id"));
         transaction.setWallet(walletRepository.findById(wallet_id).orElseThrow(() -> new RuntimeException("Wallet not found with id" )));
-        wallet.setBalance(wallet.getBalance()+ transaction.getAmount());
+        wallet.setwallet_balance(wallet.getwallet_balance()+ transaction.getAmount());
         walletRepository.save(wallet);
         transaction.setType(TransactionType.Load);
         transactionRepository.save(transaction);
-        sendSmsWithDelay(wallet.getMobilenumber(), "Amount Loaded successfully");
+        emailService.sendEmail(wallet.getEmail(),"Amount Loaded" , "Amount Successfully Loaded into your wallet : " + wallet_id);
     }
 
     @Async("mainTaskExecutor")
     public void SpendWallet(Transaction transaction, Long wallet_id) {
         Wallet wallet = walletRepository.findById(wallet_id).orElseThrow(() -> new RuntimeException("Wallet not found with id" ));
         transaction.setWallet(walletRepository.findById(wallet_id).orElseThrow(() -> new RuntimeException("Wallet not found with id" )));
-        Long bal = wallet.getBalance();
+        Long bal = wallet.getwallet_balance();
         Long spendbal = transaction.getAmount();
         if (bal < spendbal) {
-            sendSmsWithDelay(wallet.getMobilenumber(), "Low Balance");
+            emailService.sendEmail(wallet.getEmail(),"Alert : Low Balance" , "Low Balance into your wallet : " + wallet.getwallet_balance());
+
         } else {
-            wallet.setBalance(bal - spendbal);
+            wallet.setwallet_balance(bal - spendbal);
             walletRepository.save(wallet);
             transaction.setType(TransactionType.Spend);
             transactionRepository.save(transaction);
-            sendSmsWithDelay(wallet.getMobilenumber(), "Amount spent successfully");
+            emailService.sendEmail(wallet.getEmail(),"Amount Spent" , "Amount Successfully deducted from your wallet : " + wallet_id + " Amount :" + transaction.getAmount());
+
         }
 
 
 }
-
-    private void sendSmsWithDelay(Long mobilenumber, String message) {
-        new Thread(() -> {
-            try {
-                TimeUnit.SECONDS.sleep(5);
-                smsService.sendSms(mobilenumber, message);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }).start();
-    }
     }

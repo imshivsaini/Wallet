@@ -21,18 +21,6 @@ public class AsyncConfig {
         executor.initialize();
         return executor;
     }
-
-    @Bean(name = "smsTaskExecutor")
-    public Executor smsTaskExecutor() {
-        ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-        executor.setCorePoolSize(5);
-        executor.setMaxPoolSize(5);
-        executor.setQueueCapacity(100);
-        executor.setThreadNamePrefix("SMS-");
-        executor.initialize();
-        return executor;
-    }
-
     @Bean
     public RestTemplate restTemplate() {
         return new RestTemplate();

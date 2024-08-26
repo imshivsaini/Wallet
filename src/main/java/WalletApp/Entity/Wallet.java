@@ -22,8 +22,8 @@ public class Wallet {
     private String email;
     @Column(name = "address")
     private String address;
-    @Column(name = "Balance")
-    private Long balance;
+    @Column(name = "wallet_Balance")
+    private Long wallet_balance;
 
     @Column(updatable = false,name = "created")
     @CreationTimestamp
@@ -37,10 +37,10 @@ public class Wallet {
     public Wallet() {
     }
 
-    public Wallet(Timestamp updated, Timestamp created, Long balance, String address, String email, Long mobilenumber, Long wallet_id, String name) {
+    public Wallet(Timestamp updated, Timestamp created, Long wallet_balance, String address, String email, Long mobilenumber, Long wallet_id, String name) {
         this.updated = updated;
         this.created = created;
-        this.balance = balance;
+        this.wallet_balance = wallet_balance;
         this.address = address;
         this.email = email;
         this.mobilenumber = mobilenumber;
@@ -72,12 +72,12 @@ public class Wallet {
         this.created = created;
     }
 
-    public Long getBalance() {
-        return balance;
+    public Long getwallet_balance() {
+        return wallet_balance;
     }
 
-    public void setBalance(Long balance) {
-        this.balance = balance;
+    public void setwallet_balance(Long wallet_balance) {
+        this.wallet_balance = wallet_balance;
     }
 
     public String getAddress() {

@@ -26,14 +26,14 @@ public class TransactionController {
 
              logger.info("Inside Spend transaction");
         transactionService.SpendWallet(transaction, wallet_id);
-            return ResponseEntity.ok("Success");
+            return ResponseEntity.ok("Email Sent with the result.");
     }
     @PostMapping("/Load/{wallet_id}")
 
     public ResponseEntity<String> LoadTransaction(@RequestBody Transaction transaction, @PathVariable("wallet_id") Long wallet_id){
         logger.info("Inside Load transaction");
         transactionService.LoadWallet(transaction, wallet_id);
-        return ResponseEntity.ok("Success");
+        return ResponseEntity.ok("Email Sent with the result.");
     }
 
 
