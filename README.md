@@ -4,7 +4,7 @@
 
 
 This is restful service for the payment wallet application. This project is developed to allow customers to make
-payment using wallet. Implemented asynchronous processing using thread pools to improve application performance.
+payment using wallet, Add BankAccount and Beneficiary to the wallet. Implemented asynchronous processing using thread pools to improve application performance and email serivce to notify the user.
 
 To start the application :- 
 
