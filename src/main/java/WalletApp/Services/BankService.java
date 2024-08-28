@@ -33,6 +33,7 @@ public class BankService {
         bnk.setWallet(walletRepository.findById(walletid).orElseThrow(() -> new RuntimeException("No wallet found")));
 
             bankRepo.save(bnk);
+            return;
         }
         throw new RuntimeException("Account already exists");
     }
@@ -47,4 +48,10 @@ public class BankService {
         }
 
     }
+
+    public BankAccount ViewBankAccountbyacc(Long accountNumber)
+    {
+            return bankRepo.findById(accountNumber).orElseThrow(()->new RuntimeException("No account found"));
+    }
+
 }

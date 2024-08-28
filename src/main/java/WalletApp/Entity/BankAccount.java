@@ -16,6 +16,7 @@ public class BankAccount {
     private Long Balance;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "walletId" ,referencedColumnName = "wallet_id")
     private Wallet wallet;
 
     public BankAccount() {

@@ -33,10 +33,17 @@ public class BankController {
     }
 
 
-    @DeleteMapping("/DeleteBank/{accountNumber}")
-    public HttpStatus deleteBankAccount(@PathVariable Long accountnumber){
+    @DeleteMapping("/DeleteBank")
+    public HttpStatus deleteBankAccount(@RequestParam Long accountnumber){
         logger.info("Inside Delete Bank Account");
         bankService.DeleteBankAccount(accountnumber);
         return HttpStatus.OK;
+    }
+
+    @GetMapping("/ViewBankAccount")
+    public BankAccount ViewBankAccount(@RequestParam Long accountnumber){
+        logger.info("Inside View Bank Account");
+
+        return bankService.ViewBankAccountbyacc(accountnumber);
     }
 }
